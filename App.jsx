@@ -42,10 +42,9 @@ export default function App() {
         </View>
       </View>
 
-      <View>
-        <Text>+</Text>
+      <View style={styles.circleButton}>
+        <Text style={styles.circleButtonLabel}>+</Text>
       </View>
-
     </View>
   );
 }
@@ -96,5 +95,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     color: '#848484',
-  }
+  },
+  circleButton: {
+    backgroundColor: '#467fd3',
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 40,
+    bottom: 40,
+    shadowColor: '#000000',
+    // 影の設定
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    // figmaのblurと同じ設定だと薄すぎてしまうので注意。
+    shadowRadius: 8,
+    // shadowの設定はiOSのみ。androidは下記が必要で、androidにしかない。
+    elevation: 8,
+  },
+  circleButtonLabel: {
+    color: '#ffffff',
+    fontSize: 40,
+    lineHeight: 40,
+  },
 });
