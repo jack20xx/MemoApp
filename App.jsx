@@ -9,6 +9,7 @@ export default function App() {
       {/* bangは！を表す。propsを指定して、Helloで使えるようにする。
           trueであれば省略可能。 */}
       <Hello bang>World</Hello>
+      <Hello bang style={{ fontSize: 16}}>Small World</Hello>
       <Text>Open up App.js to start working on your app!</Text>
       {/* eslint-disable-next-line */}
       <StatusBar style="auto" />
