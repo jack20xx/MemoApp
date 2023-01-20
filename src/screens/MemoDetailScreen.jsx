@@ -4,14 +4,13 @@ import {
 } from 'react-native';
 // ScrollViewはReact専用のスクロールできるようにするためのタグ。
 
-import AppBar from '../components/AppBar';
 import CircleButton from '../components/CircleButton';
 
-export default function MemoDetailScreen() {
+export default function MemoDetailScreen(props) {
+    // MemoDetailScreenのpropsからnavigationを取り出す。
+    const { navigation } = props;
     return (
         <View style={styles.container}>
-            <AppBar />
-
             <View style={styles.memoHeader}>
                 <Text style={styles.memoTitle}>買い物リスト</Text>
                 <Text style={styles.memoDate}>2023年1月16日 10:00</Text>
@@ -24,7 +23,12 @@ export default function MemoDetailScreen() {
                 </Text>
             </ScrollView>
 
-            <CircleButton style={{ top: 160, bottom: 'auto' }} name="pencil" />
+            <CircleButton
+                style={{ top: 60, bottom: 'auto' }}
+                name="pencil"
+                // App.jsxのnameと対応している。
+                onPress={() => { navigation.navigate('MemoEdit'); }}
+            />
         </View>
     );
 }

@@ -3,19 +3,21 @@ import {
     View, TextInput, StyleSheet,
 } from 'react-native';
 
-import AppBar from '../components/AppBar';
 import CircleButton from '../components/CircleButton';
 import KeyboardSafeView from '../components/KeyboardSafeView';
 
-export default function MemoEditScreen() {
+export default function MemoEditScreen(props) {
+    const { navigation } = props;
     return (
         <KeyboardSafeView style={styles.container}>
-            <AppBar />
             {/* TextInputで文字入力可能、multilneで複数行を許可 */}
             <View style={styles.inputContainer}>
                 <TextInput value="買い物リスト" multiline style={styles.input} />
             </View>
-            <CircleButton name="check" />
+            <CircleButton
+                name="check"
+                onPress={() => { navigation.goBack(); }}
+            />
         </KeyboardSafeView>
     );
 }
