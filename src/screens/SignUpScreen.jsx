@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View, Text, TextInput, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -7,12 +7,37 @@ import Button from '../components/Button';
 
 export default function SignUpScreen(props) {
     const { navigation } = props;
+    // 下記も分割代入。保持したいemailとsetEmailで上書きする、('')は初期値。
+    // 保持したい値ごとに設定が必要。
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <View style={styles.container}>
             <View style={styles.inner}>
                 <Text style={styles.title}>Sign Up</Text>
-                <TextInput style={styles.input} value="Email Address" />
-                <TextInput style={styles.input} value="Password" />
+                <TextInput
+                    style={styles.input}
+                    value={email}
+                    // コールバック関数、イベントが起こるたびに実行される。
+                    // この場合は入力されたtextがそのままsetEmailに入るようになっている。
+                    onChangeText={(text) => { setEmail(text); }}
+                    // 自動的に最初の文字が大文字にならないようにする。
+                    autoCapitalize="none"
+                    // @がキーボードで使いやすくなる設定。
+                    keyboardType="email-address"
+                    placeholder="Email Address"
+                    // iOSでの自動保存機能。キャメルケースに注意。
+                    textContentType="emailAddress"
+                />
+                <TextInput
+                    style={styles.input}
+                    value={password}
+                    onChangeText={(text) => { setPassword(text); }}
+                    autoCapitalize="none"
+                    placeholder="Password"
+                    secureTextEntry
+                    textContentType="password"
+                />
                 <Button
                     label="Submit"
                     onPress={() => {
