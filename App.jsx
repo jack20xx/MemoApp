@@ -26,7 +26,7 @@ export default function App() {
       {/* stackとはページ遷移の履歴が積み重なっているということ。
           Backボタンを消したいなら履歴を消すことで実現できる。 */}
       <Stack.Navigator
-        initialRouteName="SignUp"
+        initialRouteName="LogIn"
         // 元のAppBarを削除し、NavigateのheaderにAppBarのデザインを入れる。
         screenOptions={{
           headerStyle: { backgroundColor: '#467fd3' },

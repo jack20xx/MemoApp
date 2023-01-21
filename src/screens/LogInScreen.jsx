@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// useEffectでログインした時に処理を走らせ、ログイン状態を監視する。
+import React, { useState, useEffect } from 'react';
 import {
     View, Text, TextInput, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
@@ -10,6 +11,23 @@ export default function LogInScreen(props) {
     const { navigation } = props;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        // userの状態を監視する。LogInScreenが消えたら監視しないようにするため、unsubscribeを関数に設定し、監視をキャンセルしている。
+        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            // ログインしていれば、下記の処理を走らせる。
+            if (user) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'MemoList' }],
+                });
+            }
+        });
+        // LogInScreenが消える瞬間にだけ監視が実行されるため、結果的にそれ以降は監視がキャンセルされる。
+        return unsubscribe;
+    // propsが変更されるたびにuseEffectが実行されるため、空の[]を入れることで、
+    // １回だけ処理が行われるようにしている。もし監視したい対象があれば、[]の中に入れる。
+    }, []);
 
     function handlePress() {
         firebase.auth().signInWithEmailAndPassword(email, password)
