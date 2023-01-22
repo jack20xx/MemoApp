@@ -13,12 +13,14 @@ import SignUpScreen from './src/screens/SignUpScreen';
 // 公開したくない情報はenvでexportし、import。gitignoreに記載。
 import { firebaseConfig } from './env';
 
-const Stack = createStackNavigator();
+require('firebase/firestore');
 
 // firebaseの初期化が行われていない場合のみ初期化する。
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
