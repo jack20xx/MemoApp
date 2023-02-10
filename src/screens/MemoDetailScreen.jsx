@@ -60,7 +60,7 @@ export default function MemoDetailScreen(props) {
                 style={{ top: 60, bottom: 'auto' }}
                 name="pencil"
                 // App.jsxのnameと対応している。
-                onPress={() => { navigation.navigate('MemoEdit'); }}
+                onPress={() => { navigation.navigate('MemoEdit', { id: memo.id, bodyText: memo.bodyText }); }}
             />
         </View>
     );
