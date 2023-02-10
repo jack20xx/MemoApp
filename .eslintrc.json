@@ -25,6 +25,7 @@
         "react/jsx-indent-props": "off",
         "indent": [ 0, "tab"],
         // navigationのpropTypesは常に使われることが明白なため、警告をオフにする。
-        "react/prop-types": ["error", { "ignore": ["navigation"] }]
+        "react/prop-types": ["error", { "ignore": ["navigation"] }],
+        "import/prefer-default-export": 0
     }
 }
