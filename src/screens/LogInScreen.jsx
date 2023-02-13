@@ -6,11 +6,13 @@ import {
 import firebase from 'firebase';
 
 import Button from '../components/Button';
+import Loading from '../components/Loading';
 
 export default function LogInScreen(props) {
     const { navigation } = props;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         // userの状態を監視する。LogInScreenが消えたら監視しないようにするため、unsubscribeを関数に設定し、監視をキャンセルしている。
@@ -21,6 +23,8 @@ export default function LogInScreen(props) {
                     index: 0,
                     routes: [{ name: 'MemoList' }],
                 });
+            } else {
+                setLoading(false);
             }
         });
         // LogInScreenが消える瞬間にだけ監視が実行されるため、結果的にそれ以降は監視がキャンセルされる。
@@ -30,6 +34,7 @@ export default function LogInScreen(props) {
     }, []);
 
     function handlePress() {
+        setLoading(true);
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 const { user } = userCredential;
@@ -41,11 +46,16 @@ export default function LogInScreen(props) {
             })
             .catch((error) => {
                 Alert.alert(error.code);
+            })
+            // ログインに成功しても失敗しても下記を行う。
+            .then(() => {
+                setLoading(false);
             });
     }
 
     return (
         <View style={styles.container}>
+            <Loading isLoading={isLoading} />
             <View style={styles.inner}>
                 <Text style={styles.title}>Log In</Text>
                 <TextInput
