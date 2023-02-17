@@ -6,6 +6,8 @@ import firebase from 'firebase';
 
 import Button from '../components/Button';
 
+import { translateErrors } from '../utils';
+
 export default function SignUpScreen(props) {
     const { navigation } = props;
     // 下記も分割代入。保持したいemailとsetEmailで上書きする、('')は初期値。
@@ -28,7 +30,8 @@ export default function SignUpScreen(props) {
             // 会員登録に失敗した場合
             .catch((error) => {
                 console.log(error.code, error.message);
-                Alert.alert(error.code);
+                const errorMsg = translateErrors(error.code);
+                Alert.alert(errorMsg.title, errorMsg.description);
             });
     }
 
